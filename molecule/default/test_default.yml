@@ -1,0 +1,8 @@
+---
+- name: "Verify the Flask Application is Running"
+  hosts: all
+  tasks:
+    - name: "Check if Flask Application is Responding"
+      uri:
+        url: "http://localhost:5000"
+        status_code: 200

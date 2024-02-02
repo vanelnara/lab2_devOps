@@ -1,0 +1,11 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+    
+  tasks:
+  - name: verify flask is available
+    uri:
+      url: http://localhost/
+      status_code: 200

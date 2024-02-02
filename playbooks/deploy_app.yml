@@ -1,0 +1,50 @@
+---
+- hosts: all
+  become: true
+  remote_user: vanel
+  become_method: sudo
+
+  tasks:
+
+  - name: Install system packages
+    apt: name={{ item }} state=latest update_cache=yes
+    loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    apt: update_cache=yes name=docker-ce state=latest
+
+  - name: Install docker-compose
+    get_url:
+      url: https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
+      dest: /usr/local/bin/docker-compose
+      mode: '+x'
+
+  - name: enable Docker services
+    service:
+      name: "docker"
+      state: started
+      enabled: yes
+    register: service_output
+
+  - name: Docker service status
+    debug: var=service_output
+
+
+  - name: Clone Git repository
+    git:
+      repo:  https://github.com/vanelnara/lab2_devOps.git
+      dest: /home/vanel/lab2_devops
+      update: yes
+
+  - name: Run docker-compose up
+    command: chdir=/home/vanel/lab2_devops docker-compose up -d

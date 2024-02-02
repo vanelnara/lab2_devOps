@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Include ansible_conf_files"
+      ansible.builtin.include_role:
+        name: "ansible_conf_files"
+
+- import_playbook: ../../playbooks/app-deploy.yaml
