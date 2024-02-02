@@ -6,4 +6,4 @@ services:
     build: .
     ports:
       - "80:5000"
-    image: st9-app:1.1
+    image: microservice-app:1.1
