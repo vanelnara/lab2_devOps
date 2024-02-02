@@ -1,23 +1,50 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>LS Lab2 - Microservice Application </title>
+    <title> Microservice Application </title>
+    <!-- Bootstrap styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Bootstrap scripts -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <style>
-     body {background-color: linen;}
-     footer{ 
-         position: absolute;
-         bottom: 0;
-         width: 100%;
-         height: 5rem;
-        }
-    
+      /* Change background color of body */
+      body {
+        background-color: pink;
+      }
+
+      /* Change background color of the header */
+      .header {
+        background-color: blue;
+        color: white;
+      }
+
+      /* Change background color of the container */
+      .container {
+        background-color: yellow;
+        color: black;
+      }
+
+      /* Change background color of the footer */
+      .footer {
+        background-color: purple;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 5rem;
+      }
     </style>
   </head>
   <body>
-    <div class="p-3 mb-2 bg-success text-white"><center><h2>Large Systems [Lab02] - Microservice Application</h2></center></div>
+    <!-- Change background color of the header -->
+    <div class="p-3 mb-2 bg-primary text-white header">
+      <center><h2> Microservice Application</h2></center>
+    </div>
+
+    <!-- Change background color of the container -->
     <div class='container pt-3'>
       {% with messages=get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -27,24 +54,18 @@
         {% endif %}
       {% endwith %}
       {% block body %}
-      
       {% endblock %}
     </div>
 
-    <footer class="p-3 mb-2 bg-success text-dark">
-        
-        <div class="row">
-        <div class="col"> Security and Network Engeneering | Innopolis University</div>
+    <!-- Change background color of the footer -->
+    <footer class="p-3 mb-2 bg-dark text-white footer">
+      <div class="row">
+        <div class="col"> DEVOPS AND SECURITY | Innopolis University</div>
         <div class="col"> </div>
         <div class="col"> </div>
-        <div class="col"> Developers: TANKOUA Jorest | Abdullah Al Noman</div>
-            </div>
-        <!--
-        <span id="left-footer">SECURITY AND NETWORK ENGENEERING | INNOPOLIS UNIVERSITY</span>  <span id="right-footer">  Developers: TANKOUA Jorest | Abdullah Al Noman
-        </span> -->
-
-        
+        <div class="col"> Developer: SOH MOUMBE VANEL</div>
+      </div>
     </footer>
-
   </body>
 </html>
+
