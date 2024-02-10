@@ -1,0 +1,47 @@
+---
+stages:
+  - build-app
+  - test
+  - build-docker
+  - push
+  - deploy
+
+default:
+  tags: 
+    - st12-runner
+
+variables:
+  IMG_NAME: "st12-app"
+  IMG_TAG: "latest"
+
+build-application:
+  stage: build-app
+  script:
+    - pip install -r requirements.txt --user
+
+test-application:
+  stage: test
+  script:
+    - echo "testing the flask application"
+    - python3 test_app.py
+
+build-docker-image:
+  stage: build-docker
+  script:
+    - echo "building the docker image $IMG_NAME:$IMG_TAG"
+    - docker build -t $DOCKER_HUB_USER/$IMG_NAME:$IMG_TAG .
+
+push-docker-image:
+  stage: push 
+  script:
+    - echo "$DOCKER_HUB_PWD" | docker login -u "$DOCKER_HUB_USER" --password-stdin
+    - echo "Pushing image to Docker Hub"
+    - docker push $DOCKER_HUB_USER/$IMG_NAME:$IMG_TAG
+
+deploy:
+  stage: deploy
+  script:
+   - ssh -o StrictHostKeyChecking=no  vm1@10.1.1.76 -i /home/gitlab-runner/gitlab_key "
+        echo "$DOCKER_HUB_PWD" | docker login -u "$DOCKER_HUB_USER" --password-stdin &&
+        docker pull $DOCKER_HUB_USER/$IMG_NAME:$IMG_TAG &&
+        docker run -d -p 80:5000 $DOCKER_HUB_USER/$IMG_NAME:$IMG_TAG "
