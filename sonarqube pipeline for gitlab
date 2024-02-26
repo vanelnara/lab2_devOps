@@ -1,0 +1,8 @@
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+   
+  script: 
+    docker run  --rm -e SONAR_HOST_URL="http://10.1.1.206:9000" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=root_sonarqube_project_ef2a7b2e-568b-48bc-bc02-49047255db98"  -e SONAR_LOGIN="sqp_dba219bade5e58e0811b06581549a7d3b1777d94"  -v "/sonarqube_project/:/usr/src"     sonarsource/sonar-scanner-cli
